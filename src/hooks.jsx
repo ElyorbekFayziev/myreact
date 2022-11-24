@@ -14,4 +14,4 @@ const Hooks =()=>{
         </>
     )
 }
-export default Hook
+export default Hooks
