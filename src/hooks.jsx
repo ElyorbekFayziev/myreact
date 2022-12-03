@@ -1,25 +1,24 @@
-import Students from "./mock/list";
-import { useState,useMemo} from "react";
-import Navbar from "./navbar";
-
-const Hooks =()=>{
-    const [data,setState] = useState(Students)
-    const data2 = useMemo(()=>{
-        return data.length
-    },[data.length])
-    const onDelete = (id)=>{
-        let res = data.filter((v)=>v.id!==id)
-        setState(res)
+import { useRef, useState } from "react"
+const Hooks=()=>{
+    const [input,setInput] = useState('')
+    const [change,setChange] = useState('')
+    const inputRef = useRef('')
+    const save=()=>{
+        setInput(inputRef.current.value)
+        console.log('Render useRef')
+    }
+    const onChange=(e)=>{
+        setChange(e.target.value)
+        console.log('Render onChange');
     }
     return (
         <>
-        <Navbar data2={data2}></Navbar>
-        <h1>Students {data.length}</h1>
-        {data.map((v)=>{
-            return(
-                <h1>ID: {v.id} -- Name:{v.name}<button onClick={()=>onDelete(v.id)}>delete</button></h1>
-            )
-        })}
+        <h1>useRef: {input}</h1>
+        <input type="text" ref={inputRef}/>
+        <button onClick={save}>click</button>
+        <hr/>
+        <h1>onChange: {change}</h1>
+        <input type="text" onChange={onChange}/>
         </>
     )
 }
